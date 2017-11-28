@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+
+import sys, hashlib
+
+filename = sys.argv[1]
+hash = sys.argv[2]
+f = open(filename, "r")
+words = []
+for line in f:
+    words.append(line[:-1])
+f.close()
+total = len(words)
+step = 0
+for w1 in list(reversed(words)):
+    for w2 in list(reversed(words)):
+        step += 1
+        print str(step/float(total*total) * 100) + '%'
+        checkhash = hashlib.md5((w1+w2)).hexdigest()
+        if checkhash == hash:
+            print w1+w2
+            sys.exit()
